@@ -132,24 +132,32 @@ function createMap(earthquakes) {
     var legend = L.control({ position: "bottomright" });
     legend.onAdd = function() {
       var div = L.DomUtil.create("div", "info legend");
-      var limits = geojson.options.limits;
-      var colors = geojson.options.colors;
-      var labels = [];
+      var limits = [1,3,10];
+      var colors = ["green","yellow","red"];
+      var labels = [">1  ","1-3  ","3+"];
   
       // Add min & max
-      var legendInfo = "<h1>Median Income</h1>" +
+      var legendInfo = "<h1>Earthquake Intensity</h1>" + "<h2>   (Ritcher Scale)</h2>"
         "<div class=\"labels\">" +
-          "<div class=\"min\">" + limits[0] + "</div>" +
-          "<div class=\"max\">" + limits[limits.length - 1] + "</div>" +
+        "<div class=\"min\">" + limits[0] + "</div>" +
+        "<div class=\"max\">" + limits[limits.length - 1] + "</div>" +
         "</div>";
   
       div.innerHTML = legendInfo;
+      
+
+      // attempting to replicate this a bit
+      // https://jsfiddle.net/0wqeouxo/
+      // limits.forEach(function(limit, index) {
+
+      //   // labels.push("<li style=\"background-color: "  + colors[index] + "\"> \+ labels[index] \+ </li>");
+      //   // console.log(labels);
+      // });
   
-      limits.forEach(function(limit, index) {
-        labels.push("<li style=\"background-color: " + colors[index] + "\"></li>");
-      });
-  
+      labels= ["<li style=\"background-color: green\"> >1 </li>", "<li style=\"background-color: yellow\"> 1-3 </li>", "<li style=\"background-color: red\"> 3+ </li>"]
+
       div.innerHTML += "<ul>" + labels.join("") + "</ul>";
+      // div.innerHTML += "<ul>" + "THIS IS TEXT" + "</ul>";
       return div;
     };
   
